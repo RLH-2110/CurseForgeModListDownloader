@@ -11,6 +11,10 @@ bool dir_exists(char const * const path) {
     return _S_ISDIR(info.st_mode) != 0;
 }
 
+bool make_dir(const char *path) {
+    return _mkdir(path) == 0;
+}
+
 #endif
 
 typedef int happy_fsWin_c; /* ISO C forbids an empty translation unit */

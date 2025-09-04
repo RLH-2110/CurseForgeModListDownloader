@@ -1,5 +1,5 @@
 CC=gcc
-CCFLAGS = -ansi -pedantic -MMD -MP
+CCFLAGS = -ansi -pedantic -MMD -MP -lcurl
 
 OUTPUT = curseDwl
 
