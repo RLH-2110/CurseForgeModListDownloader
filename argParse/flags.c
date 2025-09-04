@@ -7,3 +7,6 @@ uint32 argumentFlags = 0; /* the flags that are set with the command line! */
 
 /* path to unpacked curse */
 char* cursePath = NULL;
+
+/* directory where we want to download into*/
+char* downloadPath = NULL;

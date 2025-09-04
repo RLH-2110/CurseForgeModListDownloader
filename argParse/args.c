@@ -68,8 +68,6 @@ void get_args(int argc, char*argv[]){
 
 		switch (argv[argI][1]){
 
-			/* examples: */
-
 			/* help */
 			case 'h':
 
@@ -78,27 +76,58 @@ void get_args(int argc, char*argv[]){
 			print_help(argv[0]);
 			break;
 
-			/* takes one arg */
-			
-			case 'c':
+			/* quiet */
+			case 'q':
 
-				if (argumentFlags & ARGPARSE_FLAGS_C != 0){
-					puts("please only use the -c flag once!");
+			argumentFlags += ARGPARSE_FLAGS_Q;
+			break;
+
+			/* force */
+			case 'f':
+
+			argumentFlags += ARGPARSE_FLAGS_F;
+			break;
+
+			/* input */
+			case 'i':
+
+				if (argumentFlags & ARGPARSE_FLAGS_I != 0){
+					puts("please only use the -i flag once!");
 					exit(1);
 				}
 
 				result = fetch_flag_arg_count(argc,argv,argI+1);
 
 				if (result != 1){
-					fputs("Error: flag -c needs only one argument!\n",stdout);
+					fputs("Error: flag -i needs only one argument!\n",stdout);
 					print_help(argv[0]);
 					exit(1);
 				}
 
-				argumentFlags += ARGPARSE_FLAGS_C;				
+				argumentFlags += ARGPARSE_FLAGS_I;				
 				cursePath = argv[argI + 1];
 				break;
-				
+
+			/* output */
+			case 'o':
+
+				if (argumentFlags & ARGPARSE_FLAGS_O != 0){
+					puts("please only use the -o flag once!");
+					exit(1);
+				}
+
+				result = fetch_flag_arg_count(argc,argv,argI+1);
+
+				if (result != 1){
+					fputs("Error: flag -o needs only one argument!\n",stdout);
+					print_help(argv[0]);
+					exit(1);
+				}
+
+				argumentFlags += ARGPARSE_FLAGS_O;				
+				downloadPath = argv[argI + 1];
+				break;
+			
 
 			default:
 				fprintf(stdout,"Error: unrecognized parameter: %s\n",argv[argI]);
@@ -128,8 +157,11 @@ int fetch_flag_arg_count(int argc, char*argv[], int firstIndex){
 
 void print_help(char* argv0){
 	fprintf(stdout,"Usage: %s -t [-f row_heights...]\n",argv0);
-	fputs("  -c: sets the path to the directory of the extracted curseforge mod list (defaults to .)\n",stdout);
-	fputs("  -h: shows this help screen\n",stdout);
+	fputs("  -i: input - directory where the manifest.json is (defaults to .)\n",stdout);
+	fputs("  -o: output - directory where the mods will be saved in (defaults to ./mods)\n",stdout);
+	fputs("  -f: force - automatically answer all Y/N options with yes\n",stdout);
+	fputs("  -q: quiet - does not print info messages \n",stdout);
+	fputs("  -h: help - shows this help screen\n",stdout);
 	
 }
 

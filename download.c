@@ -1,0 +1,1 @@
+typedef int happy_download_c; /* ISO C forbids an empty translation unit */
